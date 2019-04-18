@@ -77,3 +77,31 @@ function pow(num, power){
 // pow(3, 3) /// 27
 // pow(5, 3) /// 125
 // console.log(pow(3, 3));
+
+function deepFreeze(obj){
+    if (typeof obj === "object"){
+        Object.freeze(obj);
+        for(prop in obj){
+            if (typeof obj[prop] === "object"){
+                deepFreeze(obj[prop]);
+            }
+        }
+    }else{
+        console.error('argument must be object')
+    }
+}
+ var object = {
+    a: {
+        q: {
+            c: 10
+        }
+    },
+     b: 15,
+     c: {
+        w: 30
+     }
+ };
+deepFreeze(object);
+object.a.q.c = 11;
+console.log(object.a.q.c);
+
